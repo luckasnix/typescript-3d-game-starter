@@ -1,5 +1,6 @@
 import * as Three from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { WebGPURenderer } from "three/webgpu";
 
 const app = document.getElementById("app") as HTMLDivElement;
 
@@ -9,7 +10,7 @@ if (!app) {
 
 const scene = new Three.Scene();
 
-const renderer = new Three.WebGLRenderer({ antialias: true });
+const renderer = new WebGPURenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = Three.PCFSoftShadowMap;
 app.append(renderer.domElement);
