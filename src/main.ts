@@ -1,4 +1,14 @@
-import * as Three from "three";
+import {
+  AmbientLight,
+  BoxGeometry,
+  DirectionalLight,
+  GridHelper,
+  Mesh,
+  MeshStandardMaterial,
+  PCFSoftShadowMap,
+  PerspectiveCamera,
+  Scene,
+} from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { WebGPURenderer } from "three/webgpu";
 
@@ -8,31 +18,31 @@ if (!app) {
   throw new Error("Could not find the app container.");
 }
 
-const scene = new Three.Scene();
+const scene = new Scene();
 
 const renderer = new WebGPURenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = Three.PCFSoftShadowMap;
+renderer.shadowMap.type = PCFSoftShadowMap;
 app.append(renderer.domElement);
 
-const geometry = new Three.BoxGeometry(1, 1, 1);
-const material = new Three.MeshStandardMaterial({
+const geometry = new BoxGeometry(1, 1, 1);
+const material = new MeshStandardMaterial({
   color: "#ffffff",
   roughness: 0.45,
   metalness: 0.1,
 });
-const cube = new Three.Mesh(geometry, material);
+const cube = new Mesh(geometry, material);
 cube.position.y = 0.5;
 cube.castShadow = true;
 scene.add(cube);
 
-const gridHelper = new Three.GridHelper(100, 100);
+const gridHelper = new GridHelper(100, 100);
 scene.add(gridHelper);
 
-const ambientLight = new Three.AmbientLight("#ffffff", 0.5);
+const ambientLight = new AmbientLight("#ffffff", 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new Three.DirectionalLight("#ffffff", 1);
+const directionalLight = new DirectionalLight("#ffffff", 1);
 directionalLight.position.set(4, 3, 2);
 directionalLight.castShadow = true;
 directionalLight.shadow.mapSize.set(1024, 1024);
@@ -40,7 +50,7 @@ directionalLight.shadow.camera.near = 1;
 directionalLight.shadow.camera.far = 10;
 scene.add(directionalLight);
 
-const camera = new Three.PerspectiveCamera(
+const camera = new PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   1,
