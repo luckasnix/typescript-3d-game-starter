@@ -26,20 +26,8 @@ cube.position.y = 0.5;
 cube.castShadow = true;
 scene.add(cube);
 
-const planeGeometry = new Three.PlaneGeometry(5, 5);
-const planeMaterial = new Three.MeshStandardMaterial({
-  color: "#888888",
-  roughness: 0.9,
-  metalness: 0.05,
-  side: Three.DoubleSide,
-});
-const plane = new Three.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = Math.PI / 2;
-plane.receiveShadow = true;
-scene.add(plane);
-
-const axesHelper = new Three.AxesHelper(10);
-scene.add(axesHelper);
+const gridHelper = new Three.GridHelper(100, 100);
+scene.add(gridHelper);
 
 const ambientLight = new Three.AmbientLight("#ffffff", 0.5);
 scene.add(ambientLight);
